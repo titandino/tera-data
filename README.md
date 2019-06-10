@@ -1,77 +1,200 @@
-TERA protocol data. Reference parser can be found at [tera-data-parser](https://github.com/tera-proxy/tera-data-parser).
+# tera-data
 
-## Contained files
-`map`
-* `protocol.<shareRevision>.map` - Maps packet names to numerical opcodes (randomized by BHS each patch).
-* `sysmsg.<majorPatchVersion>.map` - Maps system messages to IDs.
+This repository is intended to house packet and system message information for
+TERA. It is intended to be platform agnostic, with details on the file formats
+explained below.
 
-`protocol`
-* `<packetName>.<version>.def` - Defines a packet structure.
+The currently known open source parsers are:
+- JavaScript (Node): [tera-data-parser](https://github.com/tera-toolbox/tera-data-parser-js)
 
-## `.map` specification
-A simple enum format. Each line may contain a single key-value pair seperated by space(s), tab(s) and/or `=`. Additionally supports comments preceded by `#`.
+## Mappings
+
+The `map` directory contains files which map unique identifiers (names) to their
+numeric values. Currently, this includes:
+
+- `protocol.map`, which links opcodes to "packet" names
+- `sysmsg.map`, which links system message IDs to readable names
+
+These generally come from the client binary and should not be built or modified
+by hand unless you know what you're doing.
+
+Methods and instructions on dumping opcodes and sysmsgs can be found from:
+- [Meishu](https://github.com/meishuu/TeraScanners)
+- [Mir](https://github.com/Mirrawrs/Tera/tree/master/GameClientAnalyzer)
+- [Gl0](https://github.com/neowutran/TeraDpsMeterData/blob/master/copypaste-tuto/Gl0-opcodes.txt)
+- [GoneUp](https://github.com/GoneUp/Tera_PacketViewer/tree/master/Opcode%20DLL#readme)
+
+## Protocol
+
+TERA's network data follows a custom protocol. It is convenient to describe the
+order and meaning of each element in a "packet", which is done through a `.def`
+file under the `protocol` directory, and named after the opcode it belongs to.
+
+Each line in the `.def` must consist of the following, in order:
+- An optional series of `-` for array and object definitions. These may be
+  separated by spaces. To nest arrays or objects, just add another `-` to the
+  front.
+- A field type. Valid types listed below.
+- At least one space.
+- The name of the field.
+
+A `#` and anything after it on the line are treated as comments and will be
+ignored when parsing.
+
+The formal grammar for this syntax is in the appendix at the end of this
+document.
+
+The following simple field types are supported:
+- `bool`: A single byte that equals `true` for any non-zero value (and
+  optionally warns for any value above 1).
+- `byte`
+- `float`: A four-byte floating-point number.
+- `double`
+- `int16`
+- `int32`
+- `int64`
+- `uint16`
+- `uint32`
+- `uint64`
+
+The following complex field types are supported:
+- `vec3` - 3D vector used for location. See [tera-vec3](https://github.com/tera-toolbox/tera-vec3).
+- `vec3fa` - Rotation Vec3 used for accessory transforms.
+- `skillid` - An abstract representation of packed skill IDs. Contains the following properties and methods:
+- - `npc` (Boolean) Indicates an NPC skill
+- - `type` (Number) 1 = Action, 2 = Reaction (CC, pull, etc.)
+- - `huntingZoneId` (Number) secondary key for type 1 NPC skills
+- - `id` (Number) Skill ID
+- - `reserved` (Number) Reserved bits, typically unused
+- - `equals(skillId)`
+- - `clone()`
+- - `toString()`
+
+There is one type that is not directly represented by the raw data and instead
+serves organizational purposes:
+- `object`: Any fields under this one should be collected into some sort of
+  encapsulating object. For instance, location, angle, and character id for a
+  targeted enemy can be under an `object` called "target".
+
+There are also a few variable-length fields:
+- `array`: Almost like `object`, except there can be 0 or more that should be
+  collected into an array.
+- `bytes`: A series of `byte` data.
+- `string`: String data, encoded as null-terminated UTF-16LE (in other words, a
+  series of `uint16` where the final value is 0).
+
+Each of the variable-length fields has accompanying metadata. These fields are
+determined implicitly (see the section below for the generation rules), but in
+some cases, particularly with legacy definitions, the following metatypes can
+be used. **These types are deprecated, and use of them will disable implicit
+handling of these types:**
+- `count`: Acts as `uint16`. Dictates the length of an `array` or `bytes` field
+  of the same name.
+- `offset`: Acts as `uint16`. Indicates the byte offset from the beginning of
+  the message for an `array`, `bytes`, or `string` field of the same name.
+
+More details on the original message format are below, while details on your
+language's or library's implementation of these types should be described in
+your library's documentation.
+
+### Message Format
+
+TERA's networking encodes all data in little-endian.
+
+There are a few fields which are implied because they are never omitted. Every
+packet begins with two fields:
+- `uint16 length`, which describes the byte length of the message, including
+  this header.
+- `uint16 opcode`, which describes which kind of message this is. By looking up
+  which name has this number in the mapping, you will know what the message is
+  called.
+
+Following these two fields are the metatypes for all variable length fields. To
+produce the list, iterate through all variable length fields in order, and
+depending on the type, add a `count` and/or `offset` field for it:
+- `array`: Add `count` then `offset`.
+- `bytes`: Add `offset` then `count`.
+- `string`: Add `offset` only.
+
+Additionally, all array elements begin with two fields:
+- `offset here`, which can be used to verify correctness. If this is the first
+  element, the `offset` for the array should match this; otherwise, it should
+  match the `next` for the previous element.
+- `offset next`, which points to the byte offset of the next element in the
+  array, or zero if this is the final element.
+
+In general, you will find `count` and `offset` fields at the beginning of a
+message or array definition, and their corresponding fields at the end.
+
+#### Example
+
+Given the definition:
+
+    int32 number
+    array list
+    - int16 value
+
+A message will be parsed as if it were:
+
+    uint16 (length)
+    uint16 (opcode)
+    count  list
+    offset list
+    int32  number
+    array  list
+    - offset (here)
+    - offset (next)
+    - int16  value
+
+## Versioning
+
+Protocol definitions contain version information in the filename:
+`<NAME>.<VERSION>.def` where `<NAME>` is an opcode name and `<VERSION>` is an
+integer starting from 1 and incrementing with each change.
+
+**When submitting changes, contributors _must_ leave older versions untouched
+unless they are trivially backwards compatible. Instead, submit the changed
+definition as a new file with the version number incremented.**
+
+Whenever TERA receives a major patch, a tag will be added to the repository,
+and then the mappings will be updated and all outdated definition files will be
+deleted.
+
+## Contributing
+
+Feel free to submit pull requests! Please read the above notice in bold.
+
+## Appendix
+
+### Formal Grammar
+
+```ebnf
+# Assume comments are removed (find the first "#" token and remove everything until the end of the line).
+# Assume all lines have leading and trailing whitespace removed.
+
+definition = { line };
+line = [field] ["\r"] "\n";
+
+whitespace = " " | "\t";
+letter = "a".."z" | "A".."Z" | "_";
+digit = "0".."9";
+identifier = letter { letter | digit };
+
+simple_type = "bool"
+            | "byte"
+            | "float"
+            | ["u"] "int" ("16" | "32" | "64");
+
+complex_type = "array"
+             | "bytes"
+             | "object"
+             | "string";
+
+meta_type = "count"
+          | "offset";
+
+type = simple_type | complex_type | meta_type;
+
+depth = { "-" { whitespace } };
+field = depth type whitespace { whitespace } identifier;
 ```
-# This is a comment
-ONE = 1
-TWO = 2
-THREE = 3 # This is the third value
-```
-
-## `.def` specification
-Each line may contain the following, in order:
-* A series of `-` specifying array nesting.
-* A data type (listed below).
-* (whitespace)
-* A field name.
-
-A `#` and anything after it on the line are treated as comments and should be ignored when parsing.
-```
-# Some comment
-uint64 gameId # Your character
-
-array someArray
-- int32 value1
-- int32 value2
-- array nestedArray
-- - int32 value1
-- - int32 value2
-```
-
-### Fixed Types
-* `bool` - 1-byte boolean (0 = false, 1 = true). Common uses: Various
-* `byte` - Unsigned 1-byte integer.*
-* `int16` - 2-byte signed integer. Common uses: Player stats
-* `uint16` - 2-byte unsigned integer.
-* `int32` - 4-byte signed integer. Common uses: Various
-* `uint32` - 4-byte unsigned integer. Common uses: UniqueID
-* `int64` - 8-byte signed integer. Common uses: Money, Date
-* `uint64` - 8-byte unsigned integer. Common uses: GameID
-* `float` - 4-byte floating point. Common uses: Scale, Speed
-* `double` - 8-byte floating point.*
-* `angle` - 2-byte rotation (usually represented as radians). Common uses: Direction
-* `vec3` - 12-byte vector of 3 `float`s. Common uses: Position
-* `vec3fa` - 12-byte vector of 3 `angle`s inefficiently stored as integer `float`s. Common uses: Cosmetic rotation
-* `skillid` - 8-byte (patch >=74) or 4-byte (patch <=73) skill ID.
-* `customize` - 8-byte array of character customization fields.
-
-\* Rarely used.
-
-### Variable-Length Types
-These are automatically hoisted to the top should they appear after other data.
-* `string` - Unicode string.
-* `array` - An array of objects.
-* `bytes` - An array of bytes.
-
-### Meta-Types
-* `object` - Lets you group other data in its own namespace.
-
-## Packet data structure
-* All data types are little-endian.
-* All packets start with `uint16 size`, `uint16 packetID`.
-* `string`: `uint16 offset` directly after header, which points to a 0-terminated UCS2 string.
-* `bytes`: `uint16 offset`, `uint16 count` directly after header, which points to an array of bytes.
-* `array`: `uint16 count`, `uint16 offset` directly after the header, which points to the first `<node>`.
-* * `<node>`: `uint16 offset`, `uint16 nextOffset`, followed by data.
-
-## `.def` versioning
-**When submitting changes, contributors _must_ leave older versions untouched unless they are trivially backwards compatible. Instead, submit the changed definition as a new file with the version number incremented.**

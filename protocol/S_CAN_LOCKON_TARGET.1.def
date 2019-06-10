@@ -1,0 +1,4 @@
+uint64 target
+int32  unk
+int32  skill
+byte   ok

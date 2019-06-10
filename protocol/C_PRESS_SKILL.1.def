@@ -1,0 +1,6 @@
+int32 skill
+byte  start
+float x
+float y
+float z
+int16 w

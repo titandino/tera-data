@@ -1,0 +1,15 @@
+# Protocol version 319256 or later
+
+uint64 source #cid
+uint32 model
+uint64 projectileId 
+uint32 skill
+float  x
+float  y
+float  z
+float  toX
+float  toY
+float  toZ
+uint32 unk1
+uint32 unk2
+byte   unk3

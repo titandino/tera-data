@@ -15,7 +15,6 @@ uint16 type2
 uint16 crit
 bool   blocked
 uint32 unk2 # 0?
-uint32 unk3 # 0?
 
 object targetAction # Used for knockdown, stagger etc.
 - bool   enable

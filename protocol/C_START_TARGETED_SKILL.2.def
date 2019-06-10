@@ -1,0 +1,13 @@
+uint32 skill
+float x
+float y
+float z
+int16 w
+float toX
+float toY
+float toZ
+
+array unk
+- int32 unk1 # or float
+- int32 unk2 # or float
+- int32 unk3 # or float

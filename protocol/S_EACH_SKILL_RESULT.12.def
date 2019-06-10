@@ -1,4 +1,4 @@
-# MajorPatchVersion >= 74
+# MajorPatchVersion.MinorPatchVersion >= 74.02
 
 uint64  source
 uint64  owner      # If non-zero, then source is a projectile and this is its owner
@@ -17,7 +17,7 @@ bool    crit
 bool    stackExplode
 bool    blocked
 int32   part
-int32   unk # 0?
+int32   unk        # 0?
 
 object  reaction   # Used for knockdown, stagger etc.
 - bool    enable

@@ -1,0 +1,13 @@
+uint64 gameId
+uint32 templateId
+uint64 id 
+uint32 skill
+float  x
+float  y
+float  z
+float  toX
+float  toY
+float  toZ
+float  speed
+float  distance
+bool   curve

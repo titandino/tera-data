@@ -1,0 +1,4 @@
+uint64 cid
+uint32 skillblocked # the attack id of the enemy being blocked
+uint32 unk4 # always 0?
+byte perfect # brawler perfect blocks

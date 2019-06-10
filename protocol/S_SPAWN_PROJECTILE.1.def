@@ -1,0 +1,15 @@
+﻿uint64 id
+int32  unk1
+int32  skill
+float  x1
+float  y1
+float  z1
+float  x2
+float  y2
+float  z2
+byte   unk2
+float  speed
+uint64 source
+uint32 model
+int32  unk4
+int32  unk5

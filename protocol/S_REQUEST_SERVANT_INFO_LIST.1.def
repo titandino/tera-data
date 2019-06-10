@@ -1,4 +1,4 @@
-# majorPatchVersion >= 81
+﻿# majorPatchVersion >= 81
 
 uint32     slots
 array      servants

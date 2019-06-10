@@ -1,0 +1,9 @@
+﻿uint64 source
+float  x
+float  y
+float  z
+int16  w
+uint32 model
+uint32 skill
+uint32 type #0 = normal, 1 = lockon cancel, 2 = movement cancel, 3 = shield counter cancel, 4 = chain cancel, 6 = iframe/supercancel, 10 = block cancel, 13 = cancelled block due to running out of stamina, 19 = unsuccessful backstab, 36 = lockon cast, 37 = loadscreen cancel, 39 = dash, 43 = cutscene cancel, 51 = skill release(brawler)
+uint32 id # must match the corresponding sActionStage

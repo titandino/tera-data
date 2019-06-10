@@ -1,0 +1,23 @@
+count  targets
+offset targets
+count  endpoints
+offset endpoints
+
+uint32 skill
+float  x
+float  y
+float  z
+int16  w
+byte   unk
+
+# For some reason, TERA puts `endpoints` after the first target.
+# This will currently cause parse warnings, but it will still read properly.
+array  targets
+- int32  unk
+- uint64 target
+- int32 unk2
+
+array  endpoints
+- float x
+- float y
+- float z

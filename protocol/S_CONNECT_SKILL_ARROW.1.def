@@ -1,0 +1,4 @@
+uint32 templateId
+uint32 unk1 # 0?
+uint32 skill
+byte unk2 # 1?

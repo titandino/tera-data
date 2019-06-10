@@ -1,0 +1,16 @@
+﻿uint64 id
+uint32 unk1
+int32  skill
+float  x
+float  y
+float  z
+float  toX
+float  toY
+float  toZ
+bool   moving
+float  speed
+uint64 gameId
+uint32 templateId
+uint32 unk2
+uint32 unk3
+int16  w

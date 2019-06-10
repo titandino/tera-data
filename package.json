@@ -1,7 +1,14 @@
 {
-	"name": "tera-data",
-	"version": "0.1.0",
-	"main": "package.json",
-	"description": "Platform agnostic information about TERA packets and enums.",
-	"author": "Pinkie Pie"
+  "name": "tera-data",
+  "author": "Caali",
+  "contributors": [
+    "Pinkie Pie",
+    "meishu"
+  ],
+  "version": "1.0.0",
+  "description": "Platform agnostic repository for information about TERA network packets.",
+  "main": "package.json",
+  "repository": "tera-toolbox/tera-data",
+  "homepage": "https://github.com/tera-toolbox/tera-data#readme",
+  "bugs": "https://github.com/tera-toolbox/tera-data/issues"
 }

@@ -1,0 +1,150 @@
+count  crystals
+offset crystals
+count  rollSets
+offset rollSets
+count  unknownArray
+offset unknownArray
+offset crafter
+offset soulbind
+
+int64  uid
+int32  item
+int64  uid2
+int32  unk111
+int64  ownerId
+int32  itemSlot
+int32  unk4
+int32  stackSize
+int32  stackCount
+int32  enchantment
+int32  unk7
+bool   isSoulbound
+int32  unk9
+int32  unk112
+byte   secondSetActivated
+int32  unk113
+int32  etching
+int32  secret
+int32  unk12
+int32  unk13
+int32  unk14
+int32  unk15
+int32  unk16
+int32  unk17
+int32  unk18
+int32  unk19
+int32  unk20
+int32  unk21
+int32  unk22
+int32  unk23
+int32  unk24
+int32  unk25
+int32  unk26
+int32  unk27
+int32  unk28
+int32  unk29
+int32  unk30
+int32  unk31
+int32  unk32
+int32  unk33
+int32  unk34
+byte   masterwork
+int32  unk35
+int32  unk36
+int32  unk37
+int32  unk38
+int32  unk39
+int32  unk40
+int32  unk41
+int32  unk42
+int32  unk43
+int32  unk44
+int32  unk45
+int32  unk46
+int32  unk47
+int32  setId
+int32  unk48
+int32  unk49
+int32  unk50
+int32  unk51
+int32  unk52
+int32  unk53
+int32  feedstock
+int32  unk54
+int32  unk55
+byte   unk56
+int32  unk57
+int32  unk58
+string crafter
+string soulbind
+
+array  crystals
+- int32  crystal
+
+array  rollSets
+- count  bonuses
+- offset bonuses
+- int32  unk300
+- int32  masterworkBonus
+- int32  itemLevel
+- int32  minItemLevel
+- int32  maxItemLevel
+- array  bonuses
+- - int32  bonus
+
+array  unknownArray
+- int64  unk200
+- int32  unk201
+- int32  unk202
+- int32  unk203
+- int32  unk204
+- int32  unk205
+- int32  unk206
+- int32  unk207
+- int32  unk208
+- int32  unk209
+- int32  unk210
+- int32  unk211
+- int32  unk212
+- int32  unk213
+- int32  unk214
+- int32  unk215
+- int32  unk216
+- int32  unk217
+- int32  unk218
+- int32  unk219
+- int32  unk220
+- int32  unk221
+- int32  unk222
+- int32  unk223
+- int32  unk224
+- int32  unk225
+- int32  unk226
+- int32  unk227
+- int32  unk228
+- int32  unk229
+- int32  unk230
+- int32  unk231
+- int32  unk232
+- int32  unk233
+- int32  unk234
+- int32  unk235
+- int32  unk236
+- int32  unk237
+- int32  unk238
+- int32  unk239
+- int32  unk240
+- int32  unk241
+- int32  unk242
+- int32  unk243
+- int32  unk244
+- int32  unk245
+- int32  unk246
+- int32  unk247
+- int32  unk248
+- int32  unk249
+- int32  unk250
+- int32  unk251
+- int32  unk252
+- int32  unk253
+- int32  unk254

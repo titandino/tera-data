@@ -1,0 +1,4 @@
+uint64 target
+uint32 id
+int32  duration
+byte   status

@@ -1,0 +1,13 @@
+uint32 skill
+int16  w
+float  x
+float  y
+float  z
+float  toX
+float  toY
+float  toZ
+bool   unk # Always true?
+bool   moving
+bool   continue # true if the previous skill should not trigger S_ACTION_END for the previous skill
+                # (ex. charging skills, Ninja's Impact Bomb interrupting another skill)
+uint64 target

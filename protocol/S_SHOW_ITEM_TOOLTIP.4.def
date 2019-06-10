@@ -1,0 +1,141 @@
+count  crystals
+offset crystals
+count  bonuses
+offset bonuses
+count  bonuses2
+offset bonuses2
+offset crafter
+offset soulbind
+
+int64  uid
+int32  item
+int64  uid2
+int32  unk111
+int64  ownerId
+int32  itemSlot
+int32  unk4
+int32  stackSize
+int32  stackCount
+int32  enchant
+int32  unk7
+bool   isSoulbound
+int32  unk9
+int32  unk112
+int32  unk113
+int32  etching
+int32  secret           # These has an id in passivities but are invisible.
+int32  unk12
+int32  unk13
+int32  unk14
+int32  unk15
+int32  unk16
+int32  unk17
+int32  comparedEtching  # Etching on second tooltip (when comparing items)
+int32  comparedSecret   # 'secret' of compared item
+int32  unk20
+int32  unk21
+int32  unk22
+int32  unk23
+int32  unk24
+int32  unk25
+int32  remainingEtchTime
+int32  unk27
+int32  unk28
+int32  unk29
+int32  unk30
+int32  unk31
+int32  unk32
+int32  unk33
+int32  unk34
+int32  unk35
+int32  unk36
+int32  unk37
+int32  unk38
+int32  unk39
+int32  unk40
+int32  unk41
+
+int64  unk42
+int64  unk43
+int64  unk44
+int64  unk45
+int64  unk46
+int64  unk47
+int64  unk48
+int64  unk49
+
+int32  isEnigmatic
+byte   masterwork
+int32  masterworkBonus # 1%: 0, 2%: 2, 3%: 4
+bool   compareStats # Draw second tooltip?
+int32  attack1
+int32  defense
+int32  impact
+int32  balance
+float  critFactor           # These stats all compare and print TOTAL WHEN EQUIPPED
+float  critResist           # compare
+float  critPower            # compare
+int32  totalImpact          # compare
+int32  totalBalance         # compare
+int32  totalAttackSpeed     # compare
+int32  totalMoveSpeed       # compare
+float  weakeningResist
+float  periodicDamageResist
+float  stunResist
+int32  attackDifference
+int32  defenseDifference
+int32  impactDifference
+int32  balanceDifference
+float  addCritFactor        # Additional stats
+float  addCritResist
+float  addCritPower
+int32  addImpact
+int32  addBalance
+int32  addAttackSpeed
+float  addMoveSpeed
+float  addWeakResist
+float  addPeriodicResist
+int32  addStunResist
+int32  attack2
+int32  diffAttack2
+int32  comparedItemLevel    # Item level of compared item
+int32  itemLevelDifference  # itemLevel - comparedItemLevel
+int32  unk87
+int32  unk88
+int32  unk89
+int32  unk90
+int32  unk91
+int32  unk92
+int32  unk93
+int32  itemLevel
+int32  minItemLevel # min and max levels are used to draw the ilvl bar
+int32  maxItemLevel
+int32  unk96
+int32  unk97
+int32  unk98
+int32  unk99
+int32  enchantmentAdvantage
+int32  setId
+int32  unk102
+int32  unk103
+int32  unk104
+int32  unk105
+int64  averageBrokeredSale
+
+int32  feedstock
+int32  unk108
+int32  unk114
+int32  unk115
+int32  unk116
+byte   unk109
+string crafter
+string soulbind
+
+array  crystals
+- int32 crystal
+
+array bonuses
+- int32 bonus
+
+array bonuses2
+- int32 bonus

@@ -1,0 +1,4 @@
+# majorPatchVersion < 74
+
+skillid32 skill
+uint32 cooldown

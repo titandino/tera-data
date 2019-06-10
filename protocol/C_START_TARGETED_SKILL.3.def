@@ -1,0 +1,12 @@
+uint32 skill
+float x
+float y
+float z
+int16 w
+float toX
+float toY
+float toZ
+
+array targets
+- uint64 id
+- int32  unk

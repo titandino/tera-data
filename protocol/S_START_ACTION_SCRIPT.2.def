@@ -1,0 +1,6 @@
+# REGION : KR, since Elin Gunner patch
+# Teleportal animation script : 40 9C 00 00 == 40000
+
+uint64 cid
+uint32 script
+byte unk2 # 0?

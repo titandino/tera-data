@@ -1,0 +1,6 @@
+uint32 serverId
+uint32 playerId
+int32  currentHp
+int32  unk1
+int32  maxHp
+int32  unk2

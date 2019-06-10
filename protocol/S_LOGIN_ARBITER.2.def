@@ -1,0 +1,7 @@
+bool   success
+bool   unk1
+uint32 status
+uint32 unk2
+uint32 language # must match C_LOGIN_ARBITER.language
+bool   unk3
+uint32 unk4

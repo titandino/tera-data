@@ -1,0 +1,9 @@
+uint64 gameId
+int32  templateId
+uint64 id
+uint32 skill
+vec3   loc
+vec3   dest
+float  speed
+float  distance
+bool   curve

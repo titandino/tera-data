@@ -1,0 +1,26 @@
+﻿count  movement
+offset movement
+
+uint64 source
+float  x
+float  y
+float  z
+int16  w
+uint32 model
+uint32 skill
+uint32 stage
+float  speed
+uint32 id # must match the corresponding sActionEnd
+float  unk
+byte   unk1
+float  toX
+float  toY
+float  toZ
+int32  unk2
+int32  unk3
+
+array movement
+- int32 duration
+- float speed
+- float unk # always 1?
+- float distance

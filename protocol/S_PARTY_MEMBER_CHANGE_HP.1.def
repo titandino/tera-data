@@ -1,0 +1,3 @@
+int64  target
+int32  currentHp
+int32  maxHp

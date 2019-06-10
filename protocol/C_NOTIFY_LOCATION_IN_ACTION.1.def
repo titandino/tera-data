@@ -1,0 +1,6 @@
+uint32 skill
+uint32 stage
+float x
+float y
+float z
+int16 w
