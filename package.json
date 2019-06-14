@@ -5,7 +5,7 @@
     "Pinkie Pie",
     "meishu"
   ],
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Platform agnostic repository for information about TERA network packets.",
   "main": "package.json",
   "repository": "tera-toolbox/tera-data",
