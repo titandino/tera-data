@@ -1,0 +1,9 @@
+offset name
+offset data
+count data
+
+int32  type
+int64  recipientId
+int32  dialogOption
+string name
+bytes data
